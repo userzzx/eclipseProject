@@ -1,0 +1,58 @@
+1.先安装JDK1.8，配置环境变量  JDK目录/bin;  配置到环境变量中
+2.安装Sqlyog 【Mysql看情况】
+3.解压STS
+4.手写建库建表的sql
+
+步骤
+一阶段【SpringBoot环境】
+1.创建动态Web项目
+2.复制lib的jar包到WEB-INF/lib文件夹
+3.复制config/application.properties到src目录下
+	修改mysql连接的配置、项目名配置
+4.创建InitAction ，四个注解  @SpringBootApplication、@EnableAutoConfiguration
+							@CompentScan、@MapperScan
+				SpringApplication.run(InitAction.class,args);
+							
+【二阶段  整体环境】						
+1.反向生成mapper、pojo	
+2.编写基础的Service和Action
+3.	基础测试			【测试访问是否能通，直接打印】
+	页面跳转测试		【跳转页面是否成功，页面渲染数据是否成功】
+	Ajax测试			【@DateTimeFormat  @JsonFormat】
+
+
+【三阶段】业务
+1.分页
+	(1)设置分页插件，
+			@Bean
+			public PageHelper getPageHelper() {
+				PageHelper helper=new PageHelper();
+				Properties pro=new Properties();
+				pro.setProperty("dialect", "mysql");
+				helper.setProperties(pro);
+				return helper;
+			}
+	（2）在Service中
+		PageHelper.startPage(当前页,每页大小)
+		返回数据用Page接收
+	(3)在Action返回数据，并且将上一页和下一页数据保存
+
+
+
+
+1.查询主表【列表】【页面跳转、ajax】
+2.查询主表【分页】
+3.查询明细
+4.页面上加载明细
+5.删除【有删除提示】
+6.添加主从表
+7.修改主从表
+8.单号变化
+9.隔行变色样式
+10.注释、手写sql
+
+
+
+						
+							
+							

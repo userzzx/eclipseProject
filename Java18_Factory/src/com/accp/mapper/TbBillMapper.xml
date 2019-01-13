@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.TbBillMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.pojo.TbBill" >
+    <id column="billno" property="billno" jdbcType="VARCHAR" />
+    <result column="billdate" property="billdate" jdbcType="DATE" />
+    <result column="suppliername" property="suppliername" jdbcType="VARCHAR" />
+    <result column="supplieraddress" property="supplieraddress" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="warehouse" property="warehouse" jdbcType="VARCHAR" />
+    <result column="buyer" property="buyer" jdbcType="VARCHAR" />
+    <result column="executor" property="executor" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    billno, billdate, suppliername, supplieraddress, department, warehouse, buyer, executor
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_bill
+    where billno = #{billno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_bill
+    where billno = #{billno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.accp.pojo.TbBill" >
+    insert into tb_bill (billno, billdate, suppliername, 
+      supplieraddress, department, warehouse, 
+      buyer, executor)
+    values (#{billno,jdbcType=VARCHAR}, #{billdate,jdbcType=DATE}, #{suppliername,jdbcType=VARCHAR}, 
+      #{supplieraddress,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{warehouse,jdbcType=VARCHAR}, 
+      #{buyer,jdbcType=VARCHAR}, #{executor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.pojo.TbBill" >
+    insert into tb_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billno != null" >
+        billno,
+      </if>
+      <if test="billdate != null" >
+        billdate,
+      </if>
+      <if test="suppliername != null" >
+        suppliername,
+      </if>
+      <if test="supplieraddress != null" >
+        supplieraddress,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="warehouse != null" >
+        warehouse,
+      </if>
+      <if test="buyer != null" >
+        buyer,
+      </if>
+      <if test="executor != null" >
+        executor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billno != null" >
+        #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="billdate != null" >
+        #{billdate,jdbcType=DATE},
+      </if>
+      <if test="suppliername != null" >
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="supplieraddress != null" >
+        #{supplieraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null" >
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="buyer != null" >
+        #{buyer,jdbcType=VARCHAR},
+      </if>
+      <if test="executor != null" >
+        #{executor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.pojo.TbBill" >
+    update tb_bill
+    <set >
+      <if test="billdate != null" >
+        billdate = #{billdate,jdbcType=DATE},
+      </if>
+      <if test="suppliername != null" >
+        suppliername = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="supplieraddress != null" >
+        supplieraddress = #{supplieraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouse != null" >
+        warehouse = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="buyer != null" >
+        buyer = #{buyer,jdbcType=VARCHAR},
+      </if>
+      <if test="executor != null" >
+        executor = #{executor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where billno = #{billno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.pojo.TbBill" >
+    update tb_bill
+    set billdate = #{billdate,jdbcType=DATE},
+      suppliername = #{suppliername,jdbcType=VARCHAR},
+      supplieraddress = #{supplieraddress,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      warehouse = #{warehouse,jdbcType=VARCHAR},
+      buyer = #{buyer,jdbcType=VARCHAR},
+      executor = #{executor,jdbcType=VARCHAR}
+    where billno = #{billno,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="queryAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />,
+    (select sum(goodsmoneyamt) from tb_detail
+    where billno=tb_bill.billno) totalMoney
+    from tb_bill 
+    order by billdate desc
+  </select>
+  
+  <select id="queryBillnoByDate"  resultType="string">
+   	select 
+    max(billno)
+    from tb_bill
+    where billdate = #{billdate,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

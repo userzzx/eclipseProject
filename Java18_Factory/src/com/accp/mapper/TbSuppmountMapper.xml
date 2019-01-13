@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.TbSuppmountMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.pojo.TbSuppmount" >
+    <result column="suppliername" property="suppliername" jdbcType="VARCHAR" />
+    <result column="totalamount" property="totalamount" jdbcType="DOUBLE" />
+  </resultMap>
+  <insert id="insert" parameterType="com.accp.pojo.TbSuppmount" >
+    insert into tb_suppmount (suppliername, totalamount)
+    values (#{suppliername,jdbcType=VARCHAR}, #{totalamount,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.pojo.TbSuppmount" >
+    insert into tb_suppmount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="suppliername != null" >
+        suppliername,
+      </if>
+      <if test="totalamount != null" >
+        totalamount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="suppliername != null" >
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="totalamount != null" >
+        #{totalamount,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+</mapper>

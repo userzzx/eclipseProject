@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.TbDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.pojo.TbDetail" >
+    <id column="billno" property="billno" jdbcType="VARCHAR" />
+    <id column="lineid" property="lineid" jdbcType="INTEGER" />
+    <result column="goodsname" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsnum" property="goodsnum" jdbcType="DOUBLE" />
+    <result column="goodsprice" property="goodsprice" jdbcType="DOUBLE" />
+    <result column="goodsmoneyamt" property="goodsmoneyamt" jdbcType="DOUBLE" />
+    <result column="ispresent" property="ispresent" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    billno, lineid, goodsname, goodsnum, goodsprice, goodsmoneyamt, ispresent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.accp.pojo.TbDetailKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_detail
+    where billno = #{billno,jdbcType=VARCHAR}
+      and lineid = #{lineid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.accp.pojo.TbDetailKey" >
+    delete from tb_detail
+    where billno = #{billno,jdbcType=VARCHAR}
+      and lineid = #{lineid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.accp.pojo.TbDetail" >
+    insert into tb_detail (billno, lineid, goodsname, 
+      goodsnum, goodsprice, goodsmoneyamt, 
+      ispresent)
+    values (#{billno,jdbcType=VARCHAR}, #{lineid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, 
+      #{goodsnum,jdbcType=DOUBLE}, #{goodsprice,jdbcType=DOUBLE}, #{goodsmoneyamt,jdbcType=DOUBLE}, 
+      #{ispresent,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.pojo.TbDetail" >
+    insert into tb_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billno != null" >
+        billno,
+      </if>
+      <if test="lineid != null" >
+        lineid,
+      </if>
+      <if test="goodsname != null" >
+        goodsname,
+      </if>
+      <if test="goodsnum != null" >
+        goodsnum,
+      </if>
+      <if test="goodsprice != null" >
+        goodsprice,
+      </if>
+      <if test="goodsmoneyamt != null" >
+        goodsmoneyamt,
+      </if>
+      <if test="ispresent != null" >
+        ispresent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billno != null" >
+        #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="lineid != null" >
+        #{lineid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        #{goodsnum,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsprice != null" >
+        #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsmoneyamt != null" >
+        #{goodsmoneyamt,jdbcType=DOUBLE},
+      </if>
+      <if test="ispresent != null" >
+        #{ispresent,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.pojo.TbDetail" >
+    update tb_detail
+    <set >
+      <if test="goodsname != null" >
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        goodsnum = #{goodsnum,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsprice != null" >
+        goodsprice = #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsmoneyamt != null" >
+        goodsmoneyamt = #{goodsmoneyamt,jdbcType=DOUBLE},
+      </if>
+      <if test="ispresent != null" >
+        ispresent = #{ispresent,jdbcType=INTEGER},
+      </if>
+    </set>
+    where billno = #{billno,jdbcType=VARCHAR}
+      and lineid = #{lineid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.pojo.TbDetail" >
+    update tb_detail
+    set goodsname = #{goodsname,jdbcType=VARCHAR},
+      goodsnum = #{goodsnum,jdbcType=DOUBLE},
+      goodsprice = #{goodsprice,jdbcType=DOUBLE},
+      goodsmoneyamt = #{goodsmoneyamt,jdbcType=DOUBLE},
+      ispresent = #{ispresent,jdbcType=INTEGER}
+    where billno = #{billno,jdbcType=VARCHAR}
+      and lineid = #{lineid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryDetailByBillno" resultMap="BaseResultMap" 
+  >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_detail
+    where billno = #{billno,jdbcType=VARCHAR}
+
+  </select>
+  
+  <delete id="deleteByBillno"  >
+    delete from tb_detail
+    where billno = #{billno,jdbcType=VARCHAR}
+  </delete>
+  
+</mapper>
